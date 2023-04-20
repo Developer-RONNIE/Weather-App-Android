@@ -23,7 +23,7 @@
   <!-- edit text pending -->
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:hint="Enter City Name"

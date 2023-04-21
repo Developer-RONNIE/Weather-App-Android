@@ -1,10 +1,5 @@
 package com.example.weatherapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,23 +7,22 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
-
-
     final String APP_ID = "dab3af44de7d24ae7ff86549334e45bd";
     final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -168,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode==REQUEST_CODE)
         {
-            if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            if(grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(MainActivity.this,"Locationget Succesffully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Locationget Succesffully", Toast.LENGTH_SHORT).show();
                 getWeatherForCurrentLocation();
             }
             else
@@ -184,13 +178,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private  void letsdoSomeNetworking(RequestParams params)
+    private <AsyncHttpClient> void letsdoSomeNetworking(RequestParams params)
     {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(WEATHER_URL,params,new JsonHttpResponseHandler()
         {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, PreferenceActivity.Header[] headers, JSONObject response) {
 
                 Toast.makeText(MainActivity.this,"Data Get Success",Toast.LENGTH_SHORT).show();
 
@@ -203,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, PreferenceActivity.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 //super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });

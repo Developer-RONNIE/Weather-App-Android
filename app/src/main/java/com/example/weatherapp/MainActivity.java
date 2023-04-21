@@ -184,5 +184,53 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private  void letsdoSomeNetworking(RequestParams params)
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(WEATHER_URL,params,new JsonHttpResponseHandler()
+        {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+                Toast.makeText(MainActivity.this,"Data Get Success",Toast.LENGTH_SHORT).show();
+
+                weatherData weatherD=weatherData.fromJson(response);
+                updateUI(weatherD);
+
+
+                // super.onSuccess(statusCode, headers, response);
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+
+
+
+    }
+
+
+    private  void updateUI(weatherData weather){
+
+
+        Temperature.setText(weather.getmTemperature());
+        NameofCity.setText(weather.getMcity());
+        weatherState.setText(weather.getmWeatherType());
+        int resourceID=getResources().getIdentifier(weather.getMicon(),"drawable",getPackageName());
+        mweatherIcon.setImageResource(resourceID);
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mLocationManager!=null)
+        {
+            mLocationManager.removeUpdates(mLocationListner);
+        }
+    }
 }
